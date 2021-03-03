@@ -3041,3 +3041,5 @@ WARNING 2021-03-03 12:36:45,669 basehttp "GET /api/notes/list-label/ HTTP/1.1" 4
 INFO 2021-03-03 12:37:20,230 basehttp "GET /api/notes/list-collaborator/ HTTP/1.1" 200 70 157
 INFO 2021-03-03 12:48:41,084 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
 INFO 2021-03-03 12:48:42,270 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-03 13:28:56,128 basehttp "GET /api/notes/list-collaborator/ HTTP/1.1" 200 70 157
+INFO 2021-03-03 13:29:17,807 basehttp "GET /api/notes/list-label/ HTTP/1.1" 200 63 157
