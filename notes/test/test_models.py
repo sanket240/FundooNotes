@@ -13,3 +13,4 @@ class NotesTest(TestCase):
     def test_create_note(self):
         note = Notes.objects.get(title='Exam')
         self.assertEqual(note.get_description(), "Tommorow is Exam")
+

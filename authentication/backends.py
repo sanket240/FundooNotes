@@ -18,7 +18,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
             payload = jwt.decode(token, settings.SECRET_KEY, ['HS256'])
 
             user = User.objects.get(username=payload['username'])
-            return (user, token)
+            return user, token
 
         except jwt.DecodeError as identifier:
             raise exceptions.AuthenticationFailed(

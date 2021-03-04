@@ -192,6 +192,11 @@ class LabelOperationsView(RetrieveUpdateDestroyAPIView):
 
 
 class AddCollaboratorForNotes(GenericAPIView):
+    """
+                This api is for adding collaborator for notes
+                @param request: ID of the notes and email id of collaborator
+                @return: response of added collaborator
+    """
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CollaboratorSerializer
 
@@ -218,7 +223,12 @@ class AddCollaboratorForNotes(GenericAPIView):
 
 
 class AddLabelsToNote(GenericAPIView):
-    """ API to add available labels to notes of requested user """
+    """
+                API to add available labels to notes of requested user
+                @param request: ID of the notes and name of the label added to the notes
+                @return: response of added label to the notes
+
+    """
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = AddLabelsToNoteSerializer
 

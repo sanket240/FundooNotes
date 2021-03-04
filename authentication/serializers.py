@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
         email = attrs.get('email', '')
         if User.objects.filter(email=email).exists():
             raise serializers.ValidationError(
-                {'email': ('Email is already in use')})
+                {'email': 'Email is already in use'})
         return super().validate(attrs)
 
     def create(self, validated_data):
@@ -34,6 +34,7 @@ class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'password']
+
 
 class ResetPasswordEmailRequestSerializer(serializers.Serializer):
     email = serializers.EmailField(min_length=2)
@@ -56,7 +57,7 @@ class SetNewPasswordSerializer(serializers.Serializer):
         try:
             password = attrs.get('password')
             token = attrs.get('token')
-            payload = jwt.decode(token,settings.SECRET_KEY, ['HS256'])
+            payload = jwt.decode(token, settings.SECRET_KEY, ['HS256'])
             user = User.objects.get(email=payload['email'])
             user.set_password(password)
             user.save()
@@ -64,11 +65,10 @@ class SetNewPasswordSerializer(serializers.Serializer):
         except Exception as e:
             raise AuthenticationFailed('The reset link is invalid', 401)
 
+
 class EmailVerificationSerializer(serializers.ModelSerializer):
     token = serializers.CharField(max_length=555)
 
     class Meta:
         model = User
         fields = ['token']
-
-

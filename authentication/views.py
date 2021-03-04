@@ -227,14 +227,18 @@ class LoginView(GenericAPIView):
         user = auth.authenticate(username=username, password=password)
 
         if user:
+
             auth_token = jwt.encode(
                 {'username': user.username}, settings.SECRET_KEY, algorithm='HS256')
 
             serializer = UserSerializer(user)
 
-            data = {'user': serializer.data, 'token': auth_token}
+            #data = {'user': serializer.data, 'token': auth_token}
 
-            return Response(data, status=status.HTTP_200_OK)
-
+            response = Response({'response': f'You are logged in successfully', 'username': username,'token': auth_token},
+                                status=status.HTTP_200_OK)
+            response['Authorization'] = auth_token
+            #return Response(data, status=status.HTTP_200_OK)
+            return response
             # SEND RES
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)

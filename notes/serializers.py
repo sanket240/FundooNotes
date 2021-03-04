@@ -44,3 +44,4 @@ class ListNotesSerializer(serializers.ModelSerializer):
         fields = ['owner', 'title', 'description', 'label', 'collaborator', 'reminder']
         extra_kwargs = {'owner': {'read_only': True}, 'title': {'read_only': True}, 'content': {'read_only': True},
                         'reminder': {'read_only': True}}
+

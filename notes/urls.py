@@ -11,8 +11,5 @@ urlpatterns = [
     path('note-label/', AddLabelsToNote.as_view(), name='add-label'),
     path('list-collaborator/', ListCollaboratorAPIView.as_view(), name='list-collab'),
     path('list-label/', ListLabelAPIView.as_view(), name='list-label')
-    # path('delete-note/<int:id>', DeleteNoteView.as_view()),
-    # path('update-note/<int:id>', UpdateNoteAPIView.as_view()),
-    # path('display/<int:id>', DisplayNotes.as_view())
 
 ]

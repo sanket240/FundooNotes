@@ -14,19 +14,16 @@ class BaseMiddleware:
 
     def __call__(self, request):
         print("before request")
-        response = self.get_response(request)
-        print("after response")
-        return response
-
-
-class SimpleMiddleware(BaseMiddleware):
-    def process_view(self, request):
         try:
-            user = request.user
-            return Notes.objects.filter(owner=user)
+            response = self.get_response(request)
+            print("after response")
+            return response
         except OperationalError as e:
             logger.error(e)
             return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(e)
             return Response({'Message': 'Something went wrong please try again'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+

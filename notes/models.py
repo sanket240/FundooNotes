@@ -2,9 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Create your models here.
-
-
 class Labels(models.Model):
     name = models.TextField(db_index=True)
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)

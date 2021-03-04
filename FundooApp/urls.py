@@ -21,3 +21,4 @@ urlpatterns = [
     path('api/auth/', include('authentication.urls')),
     path('api/notes/', include('notes.urls'))
 ]
+

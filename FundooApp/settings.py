@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'notes.middleware.SimpleMiddleware'
+    #'notes.middleware.BaseMiddleware'
 ]
 
 ROOT_URLCONF = 'FundooApp.urls'
@@ -170,9 +170,6 @@ REDIS_PORT = env('PORT_REDIS')
 CELERY_BROKER_URL = 'redis://:sanket@localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://:sanket@localhost:6379'
 
-
-#CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-#CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_ACCEPT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER='json'
+CELERY_TASK_SERIALIZER = 'json'

@@ -3043,3 +3043,132 @@ INFO 2021-03-03 12:48:41,084 autoreload D:\Python Project\MyApplication\FundooAp
 INFO 2021-03-03 12:48:42,270 autoreload Watching for file changes with StatReloader 617
 INFO 2021-03-03 13:28:56,128 basehttp "GET /api/notes/list-collaborator/ HTTP/1.1" 200 70 157
 INFO 2021-03-03 13:29:17,807 basehttp "GET /api/notes/list-label/ HTTP/1.1" 200 63 157
+INFO 2021-03-04 10:05:38,849 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-04 10:06:26,243 basehttp "POST /api/auth/login HTTP/1.1" 200 65 157
+INFO 2021-03-04 10:07:34,597 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-04 10:07:35,168 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-04 10:07:38,364 log Internal Server Error: /api/auth/login 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 511, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 423, in finalize_response
+    assert isinstance(response, HttpResponseBase), (
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'str'>`
+ERROR 2021-03-04 10:07:38,365 basehttp "POST /api/auth/login HTTP/1.1" 500 78875 157
+INFO 2021-03-04 10:07:57,557 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-04 10:07:58,098 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-04 10:08:00,021 basehttp "POST /api/auth/login HTTP/1.1" 200 109 157
+INFO 2021-03-04 10:08:14,131 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-04 10:08:14,717 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-04 10:08:19,050 basehttp "POST /api/auth/login HTTP/1.1" 200 65 157
+INFO 2021-03-04 10:11:25,316 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-04 10:11:25,927 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-04 10:11:28,887 basehttp "POST /api/auth/login HTTP/1.1" 200 185 157
+INFO 2021-03-04 10:12:24,572 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-04 10:12:25,127 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-04 10:12:28,453 log Internal Server Error: /api/auth/login 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 511, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 423, in finalize_response
+    assert isinstance(response, HttpResponseBase), (
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'str'>`
+ERROR 2021-03-04 10:12:28,455 basehttp "POST /api/auth/login HTTP/1.1" 500 78875 157
+INFO 2021-03-04 10:12:49,747 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-04 10:12:50,377 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-04 10:12:52,285 basehttp "POST /api/auth/login HTTP/1.1" 200 109 157
+INFO 2021-03-04 10:13:06,761 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-04 10:13:07,381 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-04 10:13:09,657 basehttp "POST /api/auth/login HTTP/1.1" 200 185 157
+INFO 2021-03-04 11:38:36,071 autoreload D:\Python Project\MyApplication\FundooApp\authentication\utils.py changed, reloading. 240
+INFO 2021-03-04 11:38:37,356 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-04 11:44:43,841 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-04 11:44:44,908 autoreload Watching for file changes with StatReloader 617
+WARNING 2021-03-04 11:46:47,465 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:46:47,467 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:46:47,613 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:46:47,614 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:46:47,765 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:46:47,916 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:46:48,065 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:46:48,067 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:46:48,216 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:46:48,217 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:46:48,366 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:46:48,516 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:48:34,666 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:48:34,667 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:48:34,807 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:48:34,808 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:48:34,950 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:48:35,092 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:48:35,237 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:48:35,238 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:48:35,377 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:48:35,380 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:48:35,527 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:48:35,666 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:50:31,592 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:50:31,593 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:50:31,728 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:50:31,729 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:50:31,870 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:50:32,016 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:50:32,159 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:50:32,160 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:50:32,297 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:50:32,298 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:50:32,441 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:50:32,587 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:52:55,085 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:52:55,086 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:52:55,228 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:52:55,228 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:52:55,366 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:52:55,508 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:52:55,655 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:52:55,656 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:52:55,804 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:52:55,805 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:52:55,953 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:52:56,100 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:54:01,372 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:54:01,374 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:54:01,514 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:54:01,515 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:54:01,652 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:54:01,789 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:54:01,924 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:54:01,925 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:54:02,060 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:54:02,061 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:54:02,199 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:54:02,333 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:55:12,670 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:55:12,671 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:55:12,816 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:55:12,817 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:55:12,961 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:55:13,106 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:55:13,253 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:55:13,254 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:55:13,390 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:55:13,391 log Forbidden: /api/notes/ 224
+WARNING 2021-03-04 11:55:13,526 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-04 11:55:13,663 log Unauthorized: /api/auth/login 224
