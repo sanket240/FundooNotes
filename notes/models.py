@@ -18,6 +18,8 @@ class Notes(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=False, blank=False)
     collaborator = models.ManyToManyField(to=User, related_name='collaborator')
     label = models.ManyToManyField(to=Labels)
+    reminder = models.DateTimeField(default=None, blank=True, null=True)
+    is_trashed = models.BooleanField(default=False)
 
     def get_description(self):
         return self.description

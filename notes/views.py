@@ -3,7 +3,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
     GenericAPIView, RetrieveUpdateAPIView
 from .models import Notes, Labels
 from .serializers import NotesSerializer, LabelsSerializer, CollaboratorSerializer, AddLabelsToNoteSerializer, \
-    ListNotesSerializer
+    ListNotesSerializer, ReminderSerializer
 from rest_framework import permissions, status, views
 import logging
 from psycopg2 import OperationalError
@@ -11,6 +11,8 @@ from rest_framework.exceptions import ValidationError
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.shortcuts import HttpResponse
+from datetime import datetime, timedelta
+from .utils import Util
 
 logger = logging.getLogger('django')
 
@@ -45,6 +47,7 @@ class NoteCreateView(ListCreateAPIView):
         try:
             logger.info("Data Incoming from the database")
             return Notes.objects.filter(owner=self.request.user)
+            #return Notes.objects.filter(reminder__isnull=False)
         except OperationalError as e:
             logger.error(e)
             return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
@@ -248,7 +251,6 @@ class AddLabelsToNote(GenericAPIView):
 
 
 class ListCollaboratorAPIView(GenericAPIView):
-
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = NotesSerializer
     queryset = Notes.objects.all()
@@ -284,7 +286,7 @@ class ListLabelAPIView(GenericAPIView):
             label_list = labels.values('label')
             for i in range(len(label_list)):
                 Label_id = label_list[i]['label']
-                label =Labels.objects.filter(id=Label_id)
+                label = Labels.objects.filter(id=Label_id)
                 label_name = label.values('name')
                 label_list[i].update(label_name[0])
                 label_users = label_users + [label_list[i]]
@@ -292,3 +294,100 @@ class ListLabelAPIView(GenericAPIView):
         else:
             logger.info("No such Note available to have any collabrator Added")
             return Response({"Error": "No Labels are attached to the notes"}, status=404)
+
+
+class AddReminderToNotes(GenericAPIView):
+    serializer_class = ReminderSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def put(self, request):
+        note_id = request.data.get('note_id')
+        note = Notes.objects.get(id=note_id)
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        reminder = serializer.validated_data['reminder']
+        if reminder.replace(tzinfo=None) - datetime.now() < timedelta(seconds=0):
+            return Response({'response': 'Invalid Time Given'})
+        else:
+            note.reminder = reminder
+            note.save()
+            return Response({'response': serializer.data}, status=status.HTTP_200_OK)
+
+
+class GetReminder(ListCreateAPIView):
+    serializer_class = ReminderSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        """ Get all notes of particular User """
+        try:
+            user = self.request.user
+            logger.info("Data Incoming from the database")
+            # return Notes.objects.filter(reminder__isnull=False)
+            note = Notes.objects.filter(owner_id=1, reminder__isnull=False)
+            reminder = note.values('reminder')
+            return reminder
+        except OperationalError as e:
+            logger.error(e)
+            return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(e)
+
+
+class TrashNotes(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            note_id = request.data.get('note_id')
+            note = Notes.objects.get(id=note_id)
+            note.is_trashed = True
+            return Response({'Message': 'Note is trashed successfully'},status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.error(e)
+
+    def get(self,request):
+        try:
+            logger.info("Data Incoming from the database")
+            return HttpResponse(Notes.objects.filter(is_trashed=True))
+        except OperationalError as e:
+            logger.error(e)
+            return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(e)
+
+
+class SendReminderEmail(GenericAPIView):
+    """
+               This api is for registration of new user
+              @param request: username,email and password
+              @return: it will return the registered user with its credentials
+    """
+    serializer_class = ReminderSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        """
+                This api is for creation of new notes
+                @param request: title and description of notes
+                @return: response of created notes
+        """
+        try:
+            user = self.request.user
+            reminder_time = Notes.objects.filter(owner_id=1, reminder__isnull=False).values('reminder')
+            print(reminder_time)
+            one_hour = datetime.timedelta(hours=1)
+            send_mail_time = reminder_time - one_hour
+            current_time = datetime.datetime.now()
+            if current_time == send_mail_time:
+                email_body = 'Hi ' + user.username + 'U have a reminder at' + reminder_time
+                data = {'email_body': email_body, 'to_email': user.email,
+                        'email_subject': 'Reminder'}
+                # Util.send_email(data).delay(10)
+                Util.send_reminder_email(data).delay(10)
+                logger.info("Reminder Email Sent Successfully to the user")
+                return Response({'Message': 'Reminder Email Sent Successfully to the user'},
+                                status=status.HTTP_201_CREATED)
+        except ValidationError as e:
+            logger.error(e)
+            return Response({'Message': 'Invalid Data'}, status=status.HTTP_400_BAD_REQUEST)

@@ -8,7 +8,7 @@ class NotesSerializer(ModelSerializer):
         model = Notes
 
         fields = [
-            'title', 'description', 'id', 'owner_id','collaborator','label'
+            'title', 'description', 'id', 'owner_id'
         ]
 
 
@@ -45,3 +45,11 @@ class ListNotesSerializer(serializers.ModelSerializer):
         extra_kwargs = {'owner': {'read_only': True}, 'title': {'read_only': True}, 'content': {'read_only': True},
                         'reminder': {'read_only': True}}
 
+
+class ReminderSerializer(serializers.ModelSerializer):
+
+    reminder = serializers.DateTimeField()
+    class Meta:
+        model = Notes
+        fields = ['title', 'description', 'owner', 'reminder']
+        extra_kwargs = {'owner': {'read_only': True}, 'title': {'read_only': True}, 'description': {'read_only': True}}
