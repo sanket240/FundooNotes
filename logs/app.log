@@ -4303,3 +4303,4 @@ INFO 2021-03-05 12:50:56,718 basehttp "GET /api/notes/trash/ HTTP/1.1" 200 0 157
 INFO 2021-03-05 12:51:03,776 basehttp "POST /api/notes/trash/ HTTP/1.1" 200 42 157
 INFO 2021-03-05 12:51:47,571 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
 INFO 2021-03-05 12:51:48,293 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-05 12:51:56,334 basehttp "POST /api/notes/trash/ HTTP/1.1" 200 42 157
