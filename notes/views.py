@@ -4,6 +4,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from .models import Notes, Labels
 from .serializers import NotesSerializer, LabelsSerializer, CollaboratorSerializer, AddLabelsToNoteSerializer, \
     ListNotesSerializer, ReminderSerializer, SearchSerializer
+
 from rest_framework import permissions, status, views
 import logging
 from psycopg2 import OperationalError
@@ -48,8 +49,7 @@ class NoteCreateView(ListCreateAPIView):
         try:
             logger.info("Data Incoming from the database")
             return Notes.objects.filter(owner=self.request.user)
-            # return Notes.objects.filter(title__contains='H')
-            # return Notes.objects.filter(reminder__isnull=False)
+
         except OperationalError as e:
             logger.error(e)
             return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
@@ -337,6 +337,7 @@ class GetReminder(ListCreateAPIView):
 
 
 class TrashNotes(ListCreateAPIView):
+
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
@@ -353,11 +354,10 @@ class TrashNotes(ListCreateAPIView):
         try:
             logger.info("Data Incoming from the database")
             return Notes.objects.filter(is_trashed=True)
-        except OperationalError as e:
-            logger.error(e)
-            return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'Message': 'Note is trashed successfully'},status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
+
 
 
 class SendReminderEmail(GenericAPIView):
@@ -394,6 +394,7 @@ class SendReminderEmail(GenericAPIView):
         except ValidationError as e:
             logger.error(e)
             return Response({'Message': 'Invalid Data'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class SearchAPIView(ListCreateAPIView):
@@ -438,3 +439,4 @@ class ArchiveNotes(ListCreateAPIView):
             return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(e)
+
