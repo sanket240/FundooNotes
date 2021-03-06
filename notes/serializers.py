@@ -47,9 +47,17 @@ class ListNotesSerializer(serializers.ModelSerializer):
 
 
 class ReminderSerializer(serializers.ModelSerializer):
-
     reminder = serializers.DateTimeField()
+
     class Meta:
         model = Notes
         fields = ['title', 'description', 'owner', 'reminder']
         extra_kwargs = {'owner': {'read_only': True}, 'title': {'read_only': True}, 'description': {'read_only': True}}
+
+
+class SearchSerializer(serializers.ModelSerializer):
+    value = serializers.CharField()
+
+    class Meta:
+        model = Notes
+        fields = ['value']

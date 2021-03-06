@@ -20,6 +20,7 @@ class Notes(models.Model):
     label = models.ManyToManyField(to=Labels)
     reminder = models.DateTimeField(default=None, blank=True, null=True)
     is_trashed = models.BooleanField(default=False)
+    is_archive = models.BooleanField(default=False)
 
     def get_description(self):
         return self.description
