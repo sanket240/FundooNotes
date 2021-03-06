@@ -3,7 +3,8 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
     GenericAPIView, RetrieveUpdateAPIView
 from .models import Notes, Labels
 from .serializers import NotesSerializer, LabelsSerializer, CollaboratorSerializer, AddLabelsToNoteSerializer, \
-    ListNotesSerializer, ReminderSerializer
+    ListNotesSerializer, ReminderSerializer, SearchSerializer
+
 from rest_framework import permissions, status, views
 import logging
 from psycopg2 import OperationalError
@@ -13,6 +14,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import HttpResponse
 from datetime import datetime, timedelta
 from .utils import Util
+from django.db.models import Q
 
 logger = logging.getLogger('django')
 
@@ -47,7 +49,7 @@ class NoteCreateView(ListCreateAPIView):
         try:
             logger.info("Data Incoming from the database")
             return Notes.objects.filter(owner=self.request.user)
-            #return Notes.objects.filter(reminder__isnull=False)
+
         except OperationalError as e:
             logger.error(e)
             return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
@@ -334,7 +336,8 @@ class GetReminder(ListCreateAPIView):
             logger.error(e)
 
 
-class TrashNotes(GenericAPIView):
+class TrashNotes(ListCreateAPIView):
+
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
@@ -342,19 +345,19 @@ class TrashNotes(GenericAPIView):
             note_id = request.data.get('note_id')
             note = Notes.objects.get(id=note_id)
             note.is_trashed = True
+            note.save()
+            return Response({'Message': 'Note is trashed successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.error(e)
+
+    def get_queryset(self):
+        try:
+            logger.info("Data Incoming from the database")
+            return Notes.objects.filter(is_trashed=True)
             return Response({'Message': 'Note is trashed successfully'},status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
 
-    def get(self,request):
-        try:
-            logger.info("Data Incoming from the database")
-            return HttpResponse(Notes.objects.filter(is_trashed=True))
-        except OperationalError as e:
-            logger.error(e)
-            return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            logger.error(e)
 
 
 class SendReminderEmail(GenericAPIView):
@@ -391,3 +394,49 @@ class SendReminderEmail(GenericAPIView):
         except ValidationError as e:
             logger.error(e)
             return Response({'Message': 'Invalid Data'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class SearchAPIView(ListCreateAPIView):
+    serializer_class = NotesSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        """ Get all notes of particular User """
+        try:
+            user = self.request.user
+            search_key = self.request.data.get('value')
+            logger.info("Data Incoming from the database")
+            return Notes.objects.filter(Q(title__contains=search_key) | Q(description__contains=search_key),
+                                        owner_id=user.id, is_trashed=False)
+        except OperationalError as e:
+            logger.error(e)
+            return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(e)
+
+
+class ArchiveNotes(ListCreateAPIView):
+    serializer_class = NotesSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            note_id = request.data.get('note_id')
+            note = Notes.objects.get(id=note_id)
+            note.is_archive = True
+            note.save()
+            return Response({'Message': 'Note is archived successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.error(e)
+
+    def get_queryset(self):
+        try:
+            logger.info("Data Incoming from the database")
+            return Notes.objects.filter(is_archive=True)
+        except OperationalError as e:
+            logger.error(e)
+            return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(e)
+
