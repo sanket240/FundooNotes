@@ -421,6 +421,7 @@ class ArchiveNotes(ListCreateAPIView):
             note = Notes.objects.get(id=note_id)
             note.is_archive = True
             note.save()
+
             return Response({'Message': 'Note is archived successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
@@ -435,7 +436,7 @@ class ArchiveNotes(ListCreateAPIView):
         except Exception as e:
             logger.error(e)
 
-<<<<<<< HEAD
+
     def put(self, request):
         try:
             note_id = request.data.get('note_id')
@@ -445,5 +446,3 @@ class ArchiveNotes(ListCreateAPIView):
             return Response({'Message': 'Note is Unarchived successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
-=======
->>>>>>> ec8a515a79384ff403bdb69c630fb6787d813ece
