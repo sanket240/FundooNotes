@@ -15,6 +15,13 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
+app.conf.schedule_beat = {
+    'every-15-seconds': {
+        'task': 'notes.utils.send_reminder_email',
+        'schedule': 15,
+    }
+
+}
 
 
 @app.task(bind=True)

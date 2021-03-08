@@ -20,7 +20,7 @@ logger = logging.getLogger('django')
 
 class NoteCreateView(ListCreateAPIView):
     serializer_class = NotesSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
 
     def perform_create(self, serializer):
         """
@@ -298,7 +298,7 @@ class ListLabelAPIView(GenericAPIView):
             return Response({"Error": "No Labels are attached to the notes"}, status=404)
 
 
-class AddReminderToNotes(GenericAPIView):
+class AddReminderToNotes(ListCreateAPIView):
     serializer_class = ReminderSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -315,11 +315,6 @@ class AddReminderToNotes(GenericAPIView):
             note.save()
             return Response({'response': serializer.data}, status=status.HTTP_200_OK)
 
-
-class GetReminder(ListCreateAPIView):
-    serializer_class = ReminderSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
     def get_queryset(self):
         """ Get all notes of particular User """
         try:
@@ -328,6 +323,7 @@ class GetReminder(ListCreateAPIView):
             # return Notes.objects.filter(reminder__isnull=False)
             note = Notes.objects.filter(owner_id=1, reminder__isnull=False)
             reminder = note.values('reminder')
+            print(reminder)
             return reminder
         except OperationalError as e:
             logger.error(e)
@@ -351,7 +347,7 @@ class TrashNotes(ListCreateAPIView):
 
     def get_queryset(self):
         try:
-            logger.info("Data Incoming from the database")
+            logger.info("Data Incoming from the database ")
             return Notes.objects.filter(is_trashed=True)
         except OperationalError as e:
             logger.error(e)
@@ -377,13 +373,12 @@ class SendReminderEmail(GenericAPIView):
         """
         try:
             user = self.request.user
-            reminder_time = Notes.objects.filter(owner_id=1, reminder__isnull=False).values('reminder')
-            print(reminder_time)
-            one_hour = datetime.timedelta(hours=1)
-            send_mail_time = reminder_time - one_hour
-            current_time = datetime.datetime.now()
+            note = Notes.objects.filter(owner_id=user.id, reminder__isnull=False)
+            one_hour = timedelta(hours=1)
+            send_mail_time = note.reminder - one_hour
+            current_time = datetime.now()
             if current_time == send_mail_time:
-                email_body = 'Hi ' + user.username + 'U have a reminder at' + reminder_time
+                email_body = 'Hi ' + user.username + 'U have a reminder at' + note.reminder
                 data = {'email_body': email_body, 'to_email': user.email,
                         'email_subject': 'Reminder'}
                 # Util.send_email(data).delay(10)
@@ -436,5 +431,15 @@ class ArchiveNotes(ListCreateAPIView):
         except OperationalError as e:
             logger.error(e)
             return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(e)
+
+    def put(self, request):
+        try:
+            note_id = request.data.get('note_id')
+            note = Notes.objects.get(id=note_id)
+            note.is_archive = False
+            note.save()
+            return Response({'Message': 'Note is Unarchived successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)

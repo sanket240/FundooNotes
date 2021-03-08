@@ -1,5 +1,6 @@
 from django.core.mail import EmailMessage
 from celery import shared_task
+from django.test import Client
 
 
 class Util:
@@ -8,3 +9,6 @@ class Util:
         email = EmailMessage(
             subject=data['email_subject'], body=data['email_body'], to=[data['to_email']])
         email.send()
+
+
+

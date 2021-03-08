@@ -47,7 +47,7 @@ class RegisterView(GenericAPIView):
                          ' Use the link below to verify your email \n' + absurl
             data = {'email_body': email_body, 'to_email': user.email,
                     'email_subject': 'Verify your email'}
-            Util.send_email(data).delay(10)
+            Util.send_email(data)
             logger.info("Email Sent Successfully to the user")
             return Response(user_data, status=status.HTTP_201_CREATED)
 
