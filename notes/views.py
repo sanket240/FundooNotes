@@ -21,7 +21,8 @@ logger = logging.getLogger('django')
 
 class NoteCreateView(ListCreateAPIView):
     serializer_class = NotesSerializer
-    #permission_classes = (permissions.IsAuthenticated,)
+
+    # permission_classes = (permissions.IsAuthenticated,)
 
     def perform_create(self, serializer):
         """
@@ -333,7 +334,6 @@ class AddReminderToNotes(ListCreateAPIView):
 
 
 class TrashNotes(ListCreateAPIView):
-
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
@@ -350,10 +350,9 @@ class TrashNotes(ListCreateAPIView):
         try:
             logger.info("Data Incoming from the database ")
             return Notes.objects.filter(is_trashed=True)
-            return Response({'Message': 'Note is trashed successfully'},status=status.HTTP_200_OK)
+            return Response({'Message': 'Note is trashed successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
-
 
 
 class SendReminderEmail(GenericAPIView):
@@ -389,7 +388,6 @@ class SendReminderEmail(GenericAPIView):
         except ValidationError as e:
             logger.error(e)
             return Response({'Message': 'Invalid Data'}, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class SearchAPIView(ListCreateAPIView):
@@ -435,7 +433,6 @@ class ArchiveNotes(ListCreateAPIView):
             return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(e)
-
 
     def put(self, request):
         try:
