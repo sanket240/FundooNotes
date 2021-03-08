@@ -4772,3 +4772,384 @@ INFO 2021-03-07 01:15:35,955 views Data Incoming from the database 408
 INFO 2021-03-07 01:15:35,964 basehttp "GET /api/notes/search/ HTTP/1.1" 200 473 157
 INFO 2021-03-07 01:18:49,726 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
 INFO 2021-03-07 01:18:51,302 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-07 01:20:05,200 autoreload D:\Python Project\MyApplication\FundooApp\notes\serializers.py changed, reloading. 240
+INFO 2021-03-07 01:20:07,034 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 09:59:48,006 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:00:50,843 views Data Incoming from the database 327
+INFO 2021-03-08 10:00:50,849 basehttp "GET /api/notes/get/ HTTP/1.1" 200 37 157
+INFO 2021-03-08 10:04:21,592 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:04:22,322 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:04:59,977 log Internal Server Error: /api/notes/remmail/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\FundooApp\notes\views.py", line 381, in post
+    print(reminder_time.reminder)
+AttributeError: 'QuerySet' object has no attribute 'reminder'
+ERROR 2021-03-08 10:04:59,979 basehttp "POST /api/notes/remmail/ HTTP/1.1" 500 91860 157
+INFO 2021-03-08 10:05:35,791 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:05:36,498 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:05:46,969 log Internal Server Error: /api/notes/remmail/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\FundooApp\notes\views.py", line 382, in post
+    one_hour = datetime.timedelta(hours=1)
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+ERROR 2021-03-08 10:05:46,971 basehttp "POST /api/notes/remmail/ HTTP/1.1" 500 91969 157
+INFO 2021-03-08 10:06:34,281 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:06:35,032 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:06:37,147 log Internal Server Error: /api/notes/remmail/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\FundooApp\notes\views.py", line 381, in post
+    print(reminder_time.reminder)
+AttributeError: 'QuerySet' object has no attribute 'reminder'
+ERROR 2021-03-08 10:06:37,149 basehttp "POST /api/notes/remmail/ HTTP/1.1" 500 91860 157
+INFO 2021-03-08 10:06:56,504 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:06:57,279 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:07:01,096 log Internal Server Error: /api/notes/remmail/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\FundooApp\notes\views.py", line 382, in post
+    one_hour = datetime.timedelta(hours=1)
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+ERROR 2021-03-08 10:07:01,097 basehttp "POST /api/notes/remmail/ HTTP/1.1" 500 91998 157
+INFO 2021-03-08 10:15:17,137 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:15:17,878 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:15:24,176 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:15:55,885 views Data Incoming from the database 327
+ERROR 2021-03-08 10:15:55,888 views 'Notes' object is not subscriptable 336
+INFO 2021-03-08 10:15:55,889 basehttp "GET /api/notes/get/ HTTP/1.1" 200 2 157
+INFO 2021-03-08 10:16:07,225 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:16:07,939 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:16:10,219 views Data Incoming from the database 327
+ERROR 2021-03-08 10:16:10,285 log Internal Server Error: /api/notes/get/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\generics.py", line 239, in get
+    return self.list(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\mixins.py", line 46, in list
+    return Response(serializer.data)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\serializers.py", line 745, in data
+    ret = super().data
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\serializers.py", line 246, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\serializers.py", line 663, in to_representation
+    return [
+TypeError: 'Notes' object is not iterable
+ERROR 2021-03-08 10:16:10,288 basehttp "GET /api/notes/get/ HTTP/1.1" 500 109002 157
+INFO 2021-03-08 10:16:21,075 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:16:21,843 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:16:31,095 views Data Incoming from the database 327
+INFO 2021-03-08 10:16:31,099 basehttp "GET /api/notes/get/ HTTP/1.1" 200 98 157
+INFO 2021-03-08 10:16:42,064 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:16:42,762 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:16:44,812 views Data Incoming from the database 327
+ERROR 2021-03-08 10:16:44,812 views 'QuerySet' object has no attribute 'reminder' 336
+INFO 2021-03-08 10:16:44,813 basehttp "GET /api/notes/get/ HTTP/1.1" 200 2 157
+INFO 2021-03-08 10:17:12,384 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:17:13,069 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:17:16,470 views Data Incoming from the database 327
+ERROR 2021-03-08 10:17:16,470 views 'QuerySet' object has no attribute 'reminder' 337
+INFO 2021-03-08 10:17:16,471 basehttp "GET /api/notes/get/ HTTP/1.1" 200 2 157
+INFO 2021-03-08 10:17:33,264 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:17:33,964 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:17:35,639 views Data Incoming from the database 327
+INFO 2021-03-08 10:17:35,643 basehttp "GET /api/notes/get/ HTTP/1.1" 200 37 157
+INFO 2021-03-08 10:17:55,238 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:17:55,929 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:18:00,320 views Data Incoming from the database 327
+INFO 2021-03-08 10:18:00,326 basehttp "GET /api/notes/get/ HTTP/1.1" 200 37 157
+INFO 2021-03-08 10:21:46,712 autoreload D:\Python Project\MyApplication\FundooApp\FundooApp\celery.py changed, reloading. 240
+INFO 2021-03-08 10:21:47,603 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:22:41,095 autoreload D:\Python Project\MyApplication\FundooApp\FundooApp\celery.py changed, reloading. 240
+INFO 2021-03-08 10:22:42,260 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:23:11,981 autoreload D:\Python Project\MyApplication\FundooApp\FundooApp\celery.py changed, reloading. 240
+INFO 2021-03-08 10:27:33,234 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:27:34,334 log Internal Server Error: /api/notes/remmail/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\FundooApp\notes\views.py", line 383, in post
+    one_hour = datetime.timedelta(hours=1)
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+ERROR 2021-03-08 10:27:34,336 basehttp "POST /api/notes/remmail/ HTTP/1.1" 500 91998 157
+INFO 2021-03-08 10:28:38,249 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:28:39,163 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:28:45,932 log Internal Server Error: /api/notes/remmail/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\FundooApp\notes\views.py", line 384, in post
+    send_mail_time = reminder_time - one_hour
+TypeError: unsupported operand type(s) for -: 'QuerySet' and 'datetime.timedelta'
+ERROR 2021-03-08 10:28:45,939 basehttp "POST /api/notes/remmail/ HTTP/1.1" 500 92178 157
+INFO 2021-03-08 10:29:11,828 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:29:12,804 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:29:15,440 log Internal Server Error: /api/notes/remmail/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\FundooApp\notes\views.py", line 384, in post
+    send_mail_time = reminder_time.remainder - one_hour
+AttributeError: 'QuerySet' object has no attribute 'remainder'
+ERROR 2021-03-08 10:29:15,444 basehttp "POST /api/notes/remmail/ HTTP/1.1" 500 92094 157
+INFO 2021-03-08 10:29:29,477 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:29:30,385 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:29:33,177 log Internal Server Error: /api/notes/remmail/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\FundooApp\notes\views.py", line 384, in post
+    send_mail_time = reminder_time.reminder - one_hour
+AttributeError: 'QuerySet' object has no attribute 'reminder'
+ERROR 2021-03-08 10:29:33,182 basehttp "POST /api/notes/remmail/ HTTP/1.1" 500 92086 157
+INFO 2021-03-08 10:30:20,076 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:30:20,999 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:30:23,613 log Internal Server Error: /api/notes/remmail/ 224
+Traceback (most recent call last):
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Python Project\MyApplication\my_env\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Python Project\MyApplication\FundooApp\notes\views.py", line 383, in post
+    send_mail_time = note.reminder - one_hour
+AttributeError: 'QuerySet' object has no attribute 'reminder'
+ERROR 2021-03-08 10:30:23,619 basehttp "POST /api/notes/remmail/ HTTP/1.1" 500 92051 157
+INFO 2021-03-08 10:32:10,152 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:32:11,210 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:33:29,875 autoreload D:\Python Project\MyApplication\FundooApp\FundooApp\celery.py changed, reloading. 240
+INFO 2021-03-08 10:33:30,879 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:34:41,838 autoreload D:\Python Project\MyApplication\FundooApp\notes\utils.py changed, reloading. 240
+INFO 2021-03-08 10:34:43,682 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:35:45,912 autoreload D:\Python Project\MyApplication\FundooApp\notes\utils.py changed, reloading. 240
+INFO 2021-03-08 10:35:46,831 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:37:50,341 autoreload D:\Python Project\MyApplication\FundooApp\notes\utils.py changed, reloading. 240
+INFO 2021-03-08 10:37:51,503 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:39:08,747 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:39:22,215 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:39:33,365 basehttp "POST /api/auth/login HTTP/1.1" 200 185 157
+INFO 2021-03-08 10:39:48,471 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:39:55,819 basehttp "POST /api/auth/login HTTP/1.1" 200 185 157
+WARNING 2021-03-08 10:40:18,301 log Not Found: /auth/register/ 224
+WARNING 2021-03-08 10:40:18,301 basehttp "POST /auth/register/ HTTP/1.1" 404 2204 157
+ERROR 2021-03-08 10:40:37,556 views 'NoneType' object has no attribute 'delay' 61
+WARNING 2021-03-08 10:40:37,557 log Bad Request: /api/auth/register/ 224
+WARNING 2021-03-08 10:40:37,558 basehttp "POST /api/auth/register/ HTTP/1.1" 400 32 157
+ERROR 2021-03-08 10:40:55,079 views {'username': [ErrorDetail(string='A user with that username already exists.', code='unique')]} 61
+WARNING 2021-03-08 10:40:55,079 log Bad Request: /api/auth/register/ 224
+WARNING 2021-03-08 10:40:55,080 basehttp "POST /api/auth/register/ HTTP/1.1" 400 32 157
+INFO 2021-03-08 10:40:56,892 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:41:19,726 views {'username': [ErrorDetail(string='A user with that username already exists.', code='unique')]} 61
+WARNING 2021-03-08 10:41:19,727 log Bad Request: /api/auth/register/ 224
+WARNING 2021-03-08 10:41:19,727 basehttp "POST /api/auth/register/ HTTP/1.1" 400 32 157
+INFO 2021-03-08 10:41:20,467 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:41:34,233 views {'username': [ErrorDetail(string='A user with that username already exists.', code='unique')]} 61
+WARNING 2021-03-08 10:41:34,234 log Bad Request: /api/auth/register/ 224
+WARNING 2021-03-08 10:41:34,235 basehttp "POST /api/auth/register/ HTTP/1.1" 400 32 157
+ERROR 2021-03-08 10:42:27,627 views 'NoneType' object has no attribute 'delay' 61
+WARNING 2021-03-08 10:42:27,629 log Bad Request: /api/auth/register/ 224
+WARNING 2021-03-08 10:42:27,630 basehttp "POST /api/auth/register/ HTTP/1.1" 400 32 157
+INFO 2021-03-08 10:43:24,107 autoreload Watching for file changes with StatReloader 617
+ERROR 2021-03-08 10:43:46,673 views 'NoneType' object has no attribute 'delay' 61
+WARNING 2021-03-08 10:43:46,675 log Bad Request: /api/auth/register/ 224
+WARNING 2021-03-08 10:43:46,676 basehttp "POST /api/auth/register/ HTTP/1.1" 400 32 157
+WARNING 2021-03-08 10:45:03,363 log Bad Request: /api/auth/email-verify 224
+WARNING 2021-03-08 10:45:03,365 basehttp "GET /api/auth/email-verify?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWluMTIzNDIyNThAZ21haWwuY29tIn0.i2lND5hxA7ydK-NrPNKZEs5Exxlp1HmIG_O_O8SLE6Q HTTP/1.1" 400 6235 157
+INFO 2021-03-08 10:45:06,384 basehttp "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385 157
+INFO 2021-03-08 10:45:06,395 basehttp "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817 157
+INFO 2021-03-08 10:45:06,404 basehttp "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1131 157
+INFO 2021-03-08 10:45:06,412 basehttp "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3597 157
+INFO 2021-03-08 10:45:06,417 basehttp "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457 157
+INFO 2021-03-08 10:45:06,422 basehttp "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1719 157
+INFO 2021-03-08 10:45:06,443 basehttp "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268 157
+INFO 2021-03-08 10:45:06,460 basehttp "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632 157
+INFO 2021-03-08 10:45:06,467 basehttp "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458 157
+INFO 2021-03-08 10:45:06,482 basehttp "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680 157
+INFO 2021-03-08 10:45:06,501 basehttp "GET /static/rest_framework/js/jquery-3.5.1.min.js HTTP/1.1" 200 89476 157
+WARNING 2021-03-08 10:45:06,783 log Not Found: /favicon.ico 224
+WARNING 2021-03-08 10:45:06,784 basehttp "GET /favicon.ico HTTP/1.1" 404 2194 157
+INFO 2021-03-08 10:47:14,946 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-08 10:47:14,992 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-08 10:47:15,000 autoreload D:\Python Project\MyApplication\FundooApp\authentication\views.py changed, reloading. 240
+INFO 2021-03-08 10:47:17,340 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:47:22,713 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:47:50,286 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:49:17,948 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:49:26,132 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:51:25,135 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:51:43,453 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:53:14,885 views Email Sent Successfully to the user 51
+INFO 2021-03-08 10:57:21,658 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 10:57:41,330 autoreload D:\Python Project\MyApplication\FundooApp\notes\urls.py changed, reloading. 240
+INFO 2021-03-08 10:57:42,271 autoreload Watching for file changes with StatReloader 617
+WARNING 2021-03-08 10:58:25,784 log Method Not Allowed: /api/notes/remmail/ 224
+WARNING 2021-03-08 10:58:25,785 basehttp "GET /api/notes/remmail/ HTTP/1.1" 405 40 157
+INFO 2021-03-08 10:58:48,076 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 10:58:49,075 autoreload Watching for file changes with StatReloader 617
+WARNING 2021-03-08 10:58:51,105 log Method Not Allowed: /api/notes/remmail/ 224
+WARNING 2021-03-08 10:58:51,106 basehttp "GET /api/notes/remmail/ HTTP/1.1" 405 40 157
+WARNING 2021-03-08 10:59:02,314 log Not Found: /api/notes/remainder/ 224
+WARNING 2021-03-08 10:59:02,315 basehttp "GET /api/notes/remainder/ HTTP/1.1" 404 4424 157
+INFO 2021-03-08 10:59:10,970 views Data Incoming from the database 322
+INFO 2021-03-08 10:59:10,976 basehttp "GET /api/notes/reminder/ HTTP/1.1" 200 37 157
+INFO 2021-03-08 11:06:01,905 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 11:06:03,207 autoreload Watching for file changes with StatReloader 617
+INFO 2021-03-08 11:09:40,958 autoreload D:\Python Project\MyApplication\FundooApp\notes\views.py changed, reloading. 240
+INFO 2021-03-08 11:09:42,247 autoreload Watching for file changes with StatReloader 617
+WARNING 2021-03-08 11:09:54,133 log Unauthorized: /api/auth/login 224
+ERROR 2021-03-08 11:09:54,135 views Cannot assign "<django.contrib.auth.models.AnonymousUser object at 0x000001A32D4EE2B0>": "Notes.owner" must be a "User" instance. 42
+WARNING 2021-03-08 11:09:54,354 log Unauthorized: /api/auth/login 224
+ERROR 2021-03-08 11:09:54,356 views Cannot assign "<django.contrib.auth.models.AnonymousUser object at 0x000001A32D4D9E20>": "Notes.owner" must be a "User" instance. 42
+WARNING 2021-03-08 11:09:54,573 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-08 11:09:54,805 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-08 11:09:55,010 log Unauthorized: /api/auth/login 224
+INFO 2021-03-08 11:09:55,011 views Data Incoming from the database 49
+ERROR 2021-03-08 11:09:55,012 views Field 'id' expected a number but got <django.contrib.auth.models.AnonymousUser object at 0x000001A32D531040>. 57
+WARNING 2021-03-08 11:09:55,227 log Unauthorized: /api/auth/login 224
+INFO 2021-03-08 11:09:55,228 views Data Incoming from the database 49
+ERROR 2021-03-08 11:09:55,228 views Field 'id' expected a number but got <django.contrib.auth.models.AnonymousUser object at 0x000001A32D4D9BE0>. 57
+WARNING 2021-03-08 11:09:55,437 log Unauthorized: /api/auth/login 224
+WARNING 2021-03-08 11:09:55,650 log Unauthorized: /api/auth/login 224
