@@ -47,8 +47,8 @@ class ListNotesSerializer(serializers.ModelSerializer):
 
 
 class ReminderSerializer(serializers.ModelSerializer):
-    reminder = serializers.DateTimeField()
 
+    reminder = serializers.DateTimeField()
     class Meta:
         model = Notes
         fields = ['title', 'description', 'owner', 'reminder']
@@ -61,4 +61,3 @@ class SearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notes
         fields = ['value']
-

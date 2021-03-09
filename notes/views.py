@@ -4,25 +4,27 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from .models import Notes, Labels
 from .serializers import NotesSerializer, LabelsSerializer, CollaboratorSerializer, AddLabelsToNoteSerializer, \
     ListNotesSerializer, ReminderSerializer, SearchSerializer
-
 from rest_framework import permissions, status, views
 import logging
+from django.conf import settings
 from psycopg2 import OperationalError
 from rest_framework.exceptions import ValidationError
-from django.core.exceptions import ObjectDoesNotExist
+
 from django.contrib.auth.models import User
 from django.shortcuts import HttpResponse
 from datetime import datetime, timedelta
-from .utils import Util
 from django.db.models import Q
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 logger = logging.getLogger('django')
 
 
 class NoteCreateView(ListCreateAPIView):
     serializer_class = NotesSerializer
-
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def perform_create(self, serializer):
         """
@@ -31,8 +33,11 @@ class NoteCreateView(ListCreateAPIView):
                 @return: response of created notes
         """
         try:
-            serializer.save(owner=self.request.user)
+            owner = self.request.user
             logger.info("Note Created Successfully")
+            note = serializer.save(owner=self.request.user)
+            cache.set(str(owner.id) + "note" + str(note.id), note)
+            logger.info("DATA STORED IN CACHE")
             return Response({'Message': 'Note Created Successfully'}, status=status.HTTP_200_OK)
         except OperationalError as e:
             logger.error(e)
@@ -46,11 +51,9 @@ class NoteCreateView(ListCreateAPIView):
 
     # TOdo add responses
     def get_queryset(self):
-        """ Get all notes of particular User """
         try:
             logger.info("Data Incoming from the database")
             return Notes.objects.filter(owner=self.request.user)
-
         except OperationalError as e:
             logger.error(e)
             return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
@@ -70,12 +73,11 @@ class NoteOperationsView(RetrieveUpdateDestroyAPIView):
                    @return: response of deleted notes
         """
         try:
+            owner = self.request.user
+            cache.delete(str(owner) + "note" + str(self.kwargs[self.lookup_field]))
             instance.delete()
             logger.info("Note Deleted Successfully")
             return Response({'Message': 'Note is deleted permanently'}, status=status.HTTP_200_OK)
-        except ValidationError as e:
-            logger.error(e)
-            return Response({'Message': 'Invalid Data'}, status=status.HTTP_400_BAD_REQUEST)
         except OperationalError as e:
             logger.error(e)
             return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
@@ -91,7 +93,9 @@ class NoteOperationsView(RetrieveUpdateDestroyAPIView):
                 @return: response of updated notes
         """
         try:
+            owner = self.request.user
             note = serializer.save()
+            cache.set(str(owner) + "note" + str(self.kwargs[self.lookup_field]), self.queryset.all())
             logger.info("Note Updated Successfully")
             return Response({'Message': 'Note Updated Successfully'}, status=status.HTTP_200_OK)
         except OperationalError as e:
@@ -107,12 +111,17 @@ class NoteOperationsView(RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         """ Get all notes of particular User """
-        try:
-            logger.info("Data Incoming from the database")
-            return Notes.objects.filter(owner=self.request.user)
-        except OperationalError as e:
-            logger.error(e)
-            return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
+        owner = self.request.user
+        if cache.get(str(owner) + "notes" + str(self.kwargs[self.lookup_field])):
+            queryset = cache.get(str(owner) + "note" + str(self.kwargs[self.lookup_field]))
+            logger.info("Updated note data is coming from cache")
+            return queryset
+        else:
+            queryset = Notes.objects.filter(owner=self.request.user)
+            logger.info("Updated note data is coming form DB")
+            if queryset:
+                cache.set(str(owner) + "note" + str(self.kwargs[self.lookup_field]), queryset)
+            return queryset
 
 
 class LabelCreate(ListCreateAPIView):
@@ -127,7 +136,10 @@ class LabelCreate(ListCreateAPIView):
                   @return: response of created labels
         """
         owner = self.request.user
-        serializer.save(owner=owner)
+        label=serializer.save(owner=owner)
+        cache.set(str(owner) + "-labels-" + str(label.id), label)
+        if cache.get(str(owner) + "-labels-" + str(label.id)):
+            logger.info("Label data is stored in cache")
         logger.info("Label Created")
         return Response({'success': 'New label is created!!'}, status=status.HTTP_201_CREATED)
 
@@ -173,7 +185,9 @@ class LabelOperationsView(RetrieveUpdateDestroyAPIView):
                 @return: response of updated labels
         """
         try:
+            owner = self.request.user
             note = serializer.save()
+            cache.set(str(owner) + "-labels-" + str(self.kwargs[self.lookup_field]), self.queryset.all())
             logger.info("Label Updated Successfully")
             return Response({'Message': 'Label Updated Successfully'}, status=status.HTTP_200_OK)
         except OperationalError as e:
@@ -188,13 +202,18 @@ class LabelOperationsView(RetrieveUpdateDestroyAPIView):
             return Response({'Message': 'Failed to update label'}, status=status.HTTP_400_BAD_REQUEST)
 
     def get_queryset(self):
-        """ Get all labels for particular user """
-        try:
-            logger.info("Data Incoming from the database")
-            return Labels.objects.filter(owner=self.request.user)
-        except OperationalError as e:
-            logger.error(e)
-            return Response({'Message': 'Failed to connect with the database'}, status=status.HTTP_400_BAD_REQUEST)
+        """ Get label details for given label id owned by user """
+        owner = self.request.user
+        if cache.get(str(owner) + "-labels-" + str(self.kwargs[self.lookup_field])):
+            queryset = cache.get(str(owner) + "-labels-" + str(self.kwargs[self.lookup_field]))
+            logger.info("Label data is coming from cache")
+            return queryset
+        else:
+            queryset = self.queryset.filter(owner=owner)
+            logger.info("label data is coming form DB")
+            if queryset:
+                cache.set(str(owner) + "-labels-" + str(self.kwargs[self.lookup_field]), queryset)
+            return queryset
 
 
 class AddCollaboratorForNotes(GenericAPIView):
@@ -316,6 +335,11 @@ class AddReminderToNotes(ListCreateAPIView):
             note.save()
             return Response({'response': serializer.data}, status=status.HTTP_200_OK)
 
+
+class GetReminder(ListCreateAPIView):
+    serializer_class = ReminderSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
     def get_queryset(self):
         """ Get all notes of particular User """
         try:
@@ -350,44 +374,8 @@ class TrashNotes(ListCreateAPIView):
         try:
             logger.info("Data Incoming from the database ")
             return Notes.objects.filter(is_trashed=True)
-            return Response({'Message': 'Note is trashed successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
-
-
-class SendReminderEmail(GenericAPIView):
-    """
-               This api is for registration of new user
-              @param request: username,email and password
-              @return: it will return the registered user with its credentials
-    """
-    serializer_class = ReminderSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def post(self, request):
-        """
-                This api is for creation of new notes
-                @param request: title and description of notes
-                @return: response of created notes
-        """
-        try:
-            user = self.request.user
-            note = Notes.objects.filter(owner_id=user.id, reminder__isnull=False)
-            one_hour = timedelta(hours=1)
-            send_mail_time = note.reminder - one_hour
-            current_time = datetime.now()
-            if current_time == send_mail_time:
-                email_body = 'Hi ' + user.username + 'U have a reminder at' + note.reminder
-                data = {'email_body': email_body, 'to_email': user.email,
-                        'email_subject': 'Reminder'}
-                # Util.send_email(data).delay(10)
-                Util.send_reminder_email(data).delay(10)
-                logger.info("Reminder Email Sent Successfully to the user")
-                return Response({'Message': 'Reminder Email Sent Successfully to the user'},
-                                status=status.HTTP_201_CREATED)
-        except ValidationError as e:
-            logger.error(e)
-            return Response({'Message': 'Invalid Data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SearchAPIView(ListCreateAPIView):
@@ -415,11 +403,13 @@ class ArchiveNotes(ListCreateAPIView):
 
     def post(self, request):
         try:
+            owner = self.request.user
             note_id = request.data.get('note_id')
             note = Notes.objects.get(id=note_id)
             note.is_archive = True
             note.save()
-
+            cache.set(str(owner) + "-notes-" + str(note.id))
+            logger.info("Note archived Successfully")
             return Response({'Message': 'Note is archived successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
@@ -436,10 +426,13 @@ class ArchiveNotes(ListCreateAPIView):
 
     def put(self, request):
         try:
+            owner = self.request.user
             note_id = request.data.get('note_id')
             note = Notes.objects.get(id=note_id)
             note.is_archive = False
             note.save()
+            cache.set(str(owner) + "-notes-" + str(note.id))
+            logger.info("Note Unarchived Successfully")
             return Response({'Message': 'Note is Unarchived successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
