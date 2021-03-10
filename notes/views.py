@@ -136,7 +136,7 @@ class LabelCreate(ListCreateAPIView):
                   @return: response of created labels
         """
         owner = self.request.user
-        label=serializer.save(owner=owner)
+        label = serializer.save(owner=owner)
         cache.set(str(owner) + "-labels-" + str(label.id), label)
         if cache.get(str(owner) + "-labels-" + str(label.id)):
             logger.info("Label data is stored in cache")
@@ -335,18 +335,13 @@ class AddReminderToNotes(ListCreateAPIView):
             note.save()
             return Response({'response': serializer.data}, status=status.HTTP_200_OK)
 
-
-class GetReminder(ListCreateAPIView):
-    serializer_class = ReminderSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
     def get_queryset(self):
         """ Get all notes of particular User """
         try:
             user = self.request.user
             logger.info("Data Incoming from the database")
             # return Notes.objects.filter(reminder__isnull=False)
-            note = Notes.objects.filter(owner_id=1, reminder__isnull=False)
+            note = Notes.objects.filter(owner_id=user.id, reminder__isnull=False)
             reminder = note.values('reminder')
             print(reminder)
             return reminder

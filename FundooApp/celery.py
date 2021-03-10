@@ -14,16 +14,18 @@ app = Celery('FundooApp')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django app configs.
-app.autodiscover_tasks()
-app.conf.schedule_beat = {
+app.conf.beat_schedule = {
     'every-15-seconds': {
-        'task': 'notes.utils.send_reminder_email',
+        'task': 'authentication.utils.send_reminder_email',
         'schedule': 15,
+        'args': ('sanketdulange@gmail.com',)
     }
-
 }
 
+app.conf.timezone = 'UTC'
+
+app.autodiscover_tasks()
 
 @app.task(bind=True)
 def debug_task(self):
-    print(f'Request: {self.request!r}')
+    print('Request: {0!r}'.format(self.request))
