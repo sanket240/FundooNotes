@@ -17,7 +17,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.beat_schedule = {
     'every-15-seconds': {
         'task': 'authentication.utils.send_reminder_email',
-        'schedule': 15,
+        'schedule': 30,
         'args': ('sanketdulange@gmail.com',)
     }
 }
