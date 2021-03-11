@@ -341,7 +341,7 @@ class AddReminderToNotes(ListCreateAPIView):
             user = self.request.user
             logger.info("Data Incoming from the database")
             # return Notes.objects.filter(reminder__isnull=False)
-            note = Notes.objects.filter(owner_id=user.id, reminder__isnull=False)
+            note = Notes.objects.filter(owner_id=1, reminder__isnull=False)
             reminder = note.values('reminder')
             print(reminder)
             return reminder
@@ -431,3 +431,5 @@ class ArchiveNotes(ListCreateAPIView):
             return Response({'Message': 'Note is Unarchived successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
+
+

@@ -6,10 +6,13 @@ from .serializers import UserSerializer, LoginSerializer, EmailVerificationSeria
 from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
+from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
+
 from django.contrib import auth
 import jwt
 import redis
-
+from django.template.loader import render_to_string, get_template
 import logging
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -17,8 +20,11 @@ from django.urls import reverse
 from .utils import Util
 from django.conf import settings
 from django.shortcuts import HttpResponse
+
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=1)
 logger = logging.getLogger('django')
+
+
 # Create your views here.
 
 
@@ -43,11 +49,17 @@ class RegisterView(GenericAPIView):
             current_site = get_current_site(request).domain
             relativeLink = reverse('email-verify')
             absurl = 'http://' + current_site + relativeLink + "?token=" + str(token)
-            email_body = 'Hi ' + user.username + \
-                         ' Use the link below to verify your email \n' + absurl
-            data = {'email_body': email_body, 'to_email': user.email,
-                    'email_subject': 'Verify your email'}
-            Util.send_email(data)
+            mail_subject = "Activate your account by clicking below link"
+            mail_message = render_to_string('email_validation.html', {
+                'user': user.username,
+                'domain': absurl,
+            })
+            recipient_email = user.email
+            subject, from_email, to = 'Activate your account by clicking below link', settings.EMAIL_HOST, recipient_email
+            msg = EmailMultiAlternatives(subject, mail_message, from_email, [to])
+            msg.attach_alternative(mail_message, "text/html")
+            msg.send()
+
             logger.info("Email Sent Successfully to the user")
             return Response(user_data, status=status.HTTP_201_CREATED)
 
@@ -71,9 +83,9 @@ class VerifyEmail(views.APIView):
     serializer_class = EmailVerificationSerializer
 
     def get(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        token = request.data.get('token')
+        #serializer = self.serializer_class(data=request.data)
+       # serializer.is_valid(raise_exception=True)
+        token = request.GET.get('token')
         try:
             payload = jwt.decode(token, settings.SECRET_KEY, ['HS256'])
             user = User.objects.get(email=payload['email'])
@@ -227,18 +239,18 @@ class LoginView(GenericAPIView):
         user = auth.authenticate(username=username, password=password)
 
         if user:
-
             auth_token = jwt.encode(
                 {'username': user.username}, settings.SECRET_KEY, algorithm='HS256')
 
             serializer = UserSerializer(user)
 
-            #data = {'user': serializer.data, 'token': auth_token}
+            # data = {'user': serializer.data, 'token': auth_token}
 
-            response = Response({'response': f'You are logged in successfully', 'username': username,'token': auth_token},
-                                status=status.HTTP_200_OK)
+            response = Response(
+                {'response': f'You are logged in successfully', 'username': username, 'token': auth_token},
+                status=status.HTTP_200_OK)
             response['Authorization'] = auth_token
-            #return Response(data, status=status.HTTP_200_OK)
+            # return Response(data, status=status.HTTP_200_OK)
             return response
             # SEND RES
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
