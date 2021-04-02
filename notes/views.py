@@ -278,7 +278,6 @@ class ListCollaboratorAPIView(GenericAPIView):
     queryset = Notes.objects.all()
 
     def get(self, request):
-        user = request.user
         collaborated_users = []
         collaborator = Notes.objects.filter(collaborator__isnull=False)
         if collaborator:
@@ -341,9 +340,8 @@ class AddReminderToNotes(ListCreateAPIView):
             user = self.request.user
             logger.info("Data Incoming from the database")
             # return Notes.objects.filter(reminder__isnull=False)
-            note = Notes.objects.filter(owner_id=1, reminder__isnull=False)
+            note = Notes.objects.filter(owner_id=user.id, reminder__isnull=False)
             reminder = note.values('reminder')
-            print(reminder)
             return reminder
         except OperationalError as e:
             logger.error(e)

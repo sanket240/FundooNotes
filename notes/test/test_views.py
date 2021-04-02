@@ -94,7 +94,7 @@ class NotesAPITest(APITestCase):
 
     def test_delete_notes_valid_user(self):
         auth_headers = self.login_method(self.user_login_payload)
-        response = self.client.get(reverse('notes'), **auth_headers, kwargs={'id': 12})
+        response = self.client.delete(reverse('notes'), **auth_headers, kwargs={'id': 12})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete_notes_invalid_user(self):

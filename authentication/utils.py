@@ -1,8 +1,12 @@
 from django.core.mail import EmailMessage
 from celery import shared_task
+import logging
 from notes.models import Notes
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
+from psycopg2 import OperationalError
+from rest_framework.exceptions import ValidationError
+logger = logging.getLogger('django')
 
 
 class Util:
@@ -18,8 +22,8 @@ class Util:
             notes = Notes.objects.filter(reminder__isnull=False)
             if notes:
                 reminder_list = notes.values('id')
-                for i in range(len(reminder_list)):
-                    note_id = reminder_list[i]['id']
+                for reminder in range(len(reminder_list)):
+                    note_id = reminder_list[reminder]['id']
                     note = Notes.objects.get(id=note_id)
                     user = User.objects.get(id=note.owner_id)
                     print(user.username)
@@ -37,5 +41,10 @@ class Util:
                             Util.send_email(data)
 
                             print('Sent Message')
+        except OperationalError as e:
+            logger.error(e)
+        except ValidationError as e:
+            logger.error(e)
         except Exception as e:
+            logger.error(e)
             print(e)
