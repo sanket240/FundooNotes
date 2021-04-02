@@ -278,7 +278,6 @@ class ListCollaboratorAPIView(GenericAPIView):
     queryset = Notes.objects.all()
 
     def get(self, request):
-        user = request.user
         collaborated_users = []
         collaborator = Notes.objects.filter(collaborator__isnull=False)
         if collaborator:
@@ -343,7 +342,6 @@ class AddReminderToNotes(ListCreateAPIView):
             # return Notes.objects.filter(reminder__isnull=False)
             note = Notes.objects.filter(owner_id=user.id, reminder__isnull=False)
             reminder = note.values('reminder')
-            print(reminder)
             return reminder
         except OperationalError as e:
             logger.error(e)
@@ -431,3 +429,5 @@ class ArchiveNotes(ListCreateAPIView):
             return Response({'Message': 'Note is Unarchived successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
+
+

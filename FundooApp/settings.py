@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentication',
     'rest_framework',
-    'notes'
+    'notes',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,15 @@ DATABASES = {
         'PASSWORD': env('DATABASE_PASS'),
         'HOST': env('DATABASE_HOST'),
         'PORT': env('DATABASE_PORT'),
+    }
+}
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        "Auth Token eg [Bearer (JWT) ]": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }
 REST_FRAMEWORK = {
@@ -173,6 +183,7 @@ CELERY_RESULT_BACKEND = 'redis://:sanket@localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_ACCEPT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_TASK_ALWAYS_EAGER = True
 
 CACHE_TTL = 60 * 1440
 

@@ -17,4 +17,5 @@ urlpatterns = [
     path('search/', SearchAPIView.as_view(), name="search"),
     path('archive/', ArchiveNotes.as_view(), name="archive"),
 
+
 ]
